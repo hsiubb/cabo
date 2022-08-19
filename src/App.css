@@ -1,0 +1,211 @@
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+* {
+  padding: 0;
+  margin: 0;
+  user-select: none;
+}
+
+body {
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 400;
+  color: #d8dee9;
+  background: #303841;
+  overflow: hidden;
+}
+
+.const::before {
+  content: 'const';
+}
+.let::before {
+  content: 'let';
+}
+.equal::after {
+  content: '=';
+}
+.semicolon::after {
+  content: ';';
+}
+.function::before {
+  content: 'function';
+}
+
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .3;
+  }
+}
+
+span {
+  margin: 0 5px;
+}
+pre {
+  position: absolute;
+  top: 340px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+}
+pre code {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+  overflow: hidden;
+}
+pre div {
+  line-height: 1.2;
+}
+pre .log {
+  flex: 1;
+  overflow: auto;
+  transition: scrollTop 1s ease-in-out;
+}
+.log div {
+  margin-top: 2px;
+}
+
+
+.App {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  max-height: 100vh;
+  padding: 20px;
+}
+
+.round-hint ~ .line {
+  position: relative;
+  left: 2em;
+}
+.method {
+  color: #5fb4b4;
+}
+
+.card {
+  margin: 0;
+}
+.card--hide .number {
+  color: #999;
+}
+.card-swapping {
+  background: #fff;
+}
+.card-peeking {
+  animation: fade .6s infinite ease-in-out;
+}
+.card--highlight {
+  text-decoration: underline;
+  animation: fade .6s infinite ease-in-out;
+}
+.card--comView {
+  /*background: linear-gradient(to bottom, #626870, #323840, #626870);*/
+  background: linear-gradient(to bottom, #323840, #626870, #323840);
+}
+.keyword {
+  /* font-style: italic; */
+  color: #6699cc;
+}
+.var {
+  color: #c695c6;
+}
+.btn {
+  cursor: pointer;
+}
+.currentCard {
+  display: inline-block;
+}
+.sign {
+  color: #f97b58;
+}
+.mark {
+  margin-left: 0;
+  color: #a6acb9;
+}
+.number {
+  color: #f9ae58;
+}
+.line .number {
+  display: inline-block;
+  width: 1em;
+  text-align: center;
+}
+.card .number:hover {
+  background: #fff;
+  transition: background .3s ease-in-out;
+  animation: fade .6s infinite ease-in-out;
+}
+.string {
+  color: #99c794;
+}
+.boolean {
+  font-weight: 400;
+  color: #ec5f66;
+}
+.comment {
+  color: #a6acb9 !important;
+}
+.comment span {
+  color: #a6acb9 !important;
+}
+.skill {
+  cursor: pointer;
+}
+.comment::before {
+  content: '// ';
+}
+/*.comment .comment::before {
+  content: '';
+}*/
+
+
+@keyframes cheat {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: .7;
+  }
+}
+.hiddenBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 0 10px;
+  color: #333;
+  opacity: 0;
+  background: #fff;
+}
+.hiddenBtn:hover {
+  animation: cheat 3s infinite ease-in-out;
+}
+
+.cover {
+  display: inline-block;
+  width: 2em;
+  text-align: center;
+  color: #000;
+  background: rgba(0, 0, 0, 1);
+  transition: all .3s ease-in-out;
+}
+.cover:hover {
+  color: inherit;
+  background: rgba(0, 0, 0, 0);
+}
+.card-hide {
+  color: #a6acb9;
+}
+
+.playerBtn {
+  padding-left: 2em;
+}
