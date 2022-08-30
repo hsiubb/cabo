@@ -75,13 +75,17 @@ pre .log {
 
 
 .App {
+  overflow: auto;
+}
+.playing-board,
+.starting {
   box-sizing: border-box;
+  max-height: 100vh;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  max-height: 100vh;
-  padding: 20px;
 }
 
 .round-hint ~ .line {
@@ -208,4 +212,110 @@ pre .log {
 
 .playerBtn {
   padding-left: 2em;
+}
+
+
+
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  width: 1024px;
+  padding: 0 15px 50px;
+  margin: auto;
+  font-family: Helvetica;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 100;
+  color: #fff;
+  text-align: justify;
+  /*background: linear-gradient(to bottom, #1c3f72, #35528d, #5168aa);*/
+  background: url('bg.png');
+  background-size: auto 100%;
+  background-position: top left;
+}
+.side {
+  flex: 1;
+  padding: 40px 15px;
+}
+img {
+  display: block;
+}
+.logo {
+  width: 100%;
+  margin-bottom: 36px;
+}
+.board {
+  width: 72%;
+  margin: 12px auto;
+}
+.line-title {
+  display: block;
+  margin-bottom: 6px;
+  margin-top: 11px;
+  font-size: 28px;
+  color: #0f2c69;
+  line-height: 48px;
+  font-weight: 400;
+  text-align: center;
+  background: #fff;
+}
+.line-large {
+  font-size: 28px;
+  line-height: 50px;
+  font-weight: 400;
+  text-align: center;
+}
+.last-row {
+  letter-spacing: -1px;
+  /*white-space: nowrap;
+  */
+}
+.expand-row {
+  letter-spacing: 1px;
+}
+.period {
+}
+strong {
+  font-weight: 500;
+}
+p {
+  margin-top: 4px;
+}
+dl {
+  position: relative;
+  padding-left: 135px;
+  margin-top: 10px;
+}
+dt {
+  float: left;
+  margin-left: -135px;
+  width: 135px;
+  text-align: right;
+  font-weight: 400;
+}
+dd {
+  text-indent: 0;
+  margin-bottom: 5px;
+  letter-spacing: -1px;
+}
+
+.rule {
+  height: 100vh;
+  overflow: auto;
+}
+.center {
+  text-align: center;
+}
+.mt0 {
+  margin-top: 0;
+}
+.worker-sign {
+  margin-top: 53px;
+  font-size: .75em;
+}
+.my-sign {
+  float: right;
+  opacity: .1;
 }

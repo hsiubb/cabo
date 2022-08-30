@@ -1,4 +1,8 @@
 import { useRef, useEffect, useState } from "react";
+import logo from './logo.png'
+import board from './board.png'
+import rule_jpg from './rule.jpg'
+// import bg from './bg.png'
 import './App.css';
 
 const PEEK = 'peek';
@@ -48,7 +52,7 @@ function App() {
 
   const [cards, setCards] = useState(createDeck())
   const [discardPile, trash] = useState([false]);                          // 弃牌堆
-  const [gamePlayer, setPlayer] = useState(2);
+  const [gamePlayer, setPlayer] = useState(0);
   const [hardMode, setHardMode] = useState(false);                         // 困难模式
   const [started, gameStart] = useState(false);                            // 开始
   const [ended, gameEnd] = useState(false);                                // 结束
@@ -72,6 +76,7 @@ function App() {
   const [result, setResult] = useState(['', '', '', '']);                  // 对局结果
 
   const [logs, writeLog] = useState([]);                                   // 日志
+  const [rule, viewRule] = useState(false);                                // 查看规则
 
   // 一个玩家占一行
   const AssignLine = ({ player, list }) => {
@@ -890,7 +895,7 @@ function App() {
       {
         // true ? (
         gamePlayer ? (
-          <>
+          <div className="playing-board">
             <div id="cheating" className="hiddenBtn" onClick={cheating}>cheating</div>
 
             {round ? (
@@ -1019,23 +1024,95 @@ function App() {
               </code>
             </pre>
 
-          </>
-        ) : (
-          <div className="starting">
-            <p><span className="var">export <em>class</em></span> <span className="number">Player</span> <span className="boolean">extends</span> <em className="method">gameStarter</em> {'{'}</p>
-            <div className="playerBtn">
-              <span className="method">solo</span> () {'{'}
-              <div className="playerBtn">
-                <span><span className="btn method" onClick={() => setGamePlayer(2)}>easyMode</span>() <span className="mark semicolon"></span></span>
-                <br />
-                <span><span className="btn method" onClick={() => setGamePlayer(2, true)}>hardMode</span>() <span className="mark semicolon"></span></span>
-              </div>
-              <span>{'}'}</span>
-            </div>
-            <div className="playerBtn" onClick={() => setGamePlayer(3)}><span className="btn method">trine</span> () {'{}'}</div>
-            <div className="playerBtn" onClick={() => setGamePlayer(4)}><span className="btn method">quater</span> () {'{}'}</div>
-            <p>{'}'}</p>
           </div>
+        ) : (
+          rule ? <div className="rule">
+            <main className="container">
+              <div className="side">
+                  <h1><img src={logo} alt="" className="logo" onClick={() => viewRule(false)} /></h1>
+                  <p>接近祂，找到祂，名为 CABO 的神秘独角兽。牌上的数字代表着你与祂的距离。游戏结束时最接近 CABO 的玩家获得胜利！</p>
+                  <h2 className="line-title">游戏设置</h2>
+                  <p>洗混牌库。向每个玩家面朝下发 4 张牌并排成一行。将牌库面朝下放置在桌子的中央，并将牌库最顶端的一张牌面朝上放置在牌库的一旁形成弃牌堆。</p>
+                  <img src={board} alt="" className="board" />
+                  <p>秘密地查看你面前的任意 2 张牌并且记住它们（这是玩家除了经其他指示外，最后一次看面前的牌的机会）。玩家不能交换面前的牌的顺序。</p>
+                  <p>随机选取一个起始玩家</p>
+                  <h2 className="line-title">游戏过程</h2>
+                  <p>从起始玩家开始，顺时针进行游戏。在你的回合，你可以从牌库或者弃牌堆抽一张牌，或者宣告 CABO。</p>
+                  <p className="line-large">从牌库抽牌</p>
+                  <p>从牌库最顶端抽一张牌，之后查看这张牌并从以下行动中选择一个执行：</p>
+                  <p><strong>1）将这张牌放置到弃牌堆。</strong>如果这张牌有特殊能力，你可以选择使用。</p>
+                  <p className="center">或者</p>
+                  <p><strong>2）用你的一张或多张牌交换这张牌。</strong>将换出的牌面朝上放置到弃牌堆，并且将换入的牌面朝下放置到你面前换出的牌所在位置。参照规则书「交换多张牌」部分以了解交换多张相同牌的细节。</p>
+                  <p className="line-large">从弃牌堆抽牌</p>
+                  <p>从弃牌堆最顶端抽一张牌，之后<strong>用你的一张或多张牌交换这张牌。</strong>将换出的牌面朝上放置到弃牌堆，并且将换入的牌面朝上放置到你面前换出的牌所在位置。</p>
+                  <p className="line-large">宣告 CABO</p>
+                  <p>如果宣告 CABO，你的回合结束。其他玩家再各自按顺序进行一个回合，之后结束这一轮。</p>
+              </div>
+              <div className="side">
+                  <h2 className="line-title mt0">交换多张牌</h2>
+                  <p>如果想要用多张牌进行交换，换出的牌必须为同样数字（比如全都是 6）。在弃掉它们之前，将它们向前推出，并且翻开其中所有面朝下的牌，将换入的牌放置到其中一张换出的牌的位置上。</p>
+                  <p>如果推出的牌数字不相同，将它们返回至原位置并保<span className="expand-row">持面朝上。将抽到的牌放置到你面前最左或最右的位置。</span></p>
+                  <p>如果有三张或者更多的牌不相同，从牌库额外抽一张牌，并且面朝下放置到你面前最左或最右的位置，你不能看这张牌。</p>
+                  <h2 className="line-title">卡牌特殊能力</h2>
+                  <p>如果你从牌库抽到一张有特殊能力的牌，你可以将这<span className="expand-row">张牌放置到弃牌堆，并且可以选择使用它的能力，诸如：</span></p>
+                  <dl>
+                    <dt>7-8 PEEK：</dt>
+                    <dd>秘密地查看你自己的一张面朝下的牌。</dd>
+                    <dt>9-10 SPY：</dt>
+                    <dd>秘密地查看其他一位玩家的一张面朝下的牌。</dd>
+                    <dt>11-12 SWAP：</dt>
+                    <dd>将你的一张牌和另外一位玩家的一张牌交换（不要改变这两张牌的正反）。</dd>
+                  </dl>
+                  <h2 className="line-title">神风特攻队</h2>
+                  <p>如果一个玩家在当轮结束时，面前有且仅有 2 张 13 和 2 张 12。该玩家记 0 分，其他每位玩家记 50 分。实现神风特攻队的玩家可以宣告 CABO。</p>
+                  <h2 className="line-title">每轮结束</h2>
+                  <p>当（1）一个玩家已经宣告 CABO 并且其他玩家都再<span className="last-row">进行了一回合后，或者（2）牌库被耗尽时，本轮结束。</span></p>
+                  <p>如果游戏尚未结束，将牌洗混之后再进行一轮。上一轮得分最低的玩家成为新的起始玩家。如果出现平<span className="last-row">手，最靠近上一位起始玩家的玩家成为新的起始玩家。</span></p>
+                  <h2 className="line-title">记分</h2>
+                  <p>你的本轮得分为本轮结束时你面前的牌的数字总和。</p>
+                  <p>但是，如果是由你宣告 CABO 并且你的数字总和最低（或者最低但与他人平手），你记 0 分；如果是由你宣告 CABO 但你的数字总和不是最低，记你面前的牌的数字总和的分数，并额外加 10 分。</p>
+                  <p className="last-row">记录所有玩家本轮的分数，并且与之前轮的分数加总。</p>
+                  <h2 className="line-title">游戏结束</h2>
+                  <p>游戏会在有一位玩家分数超过 100 时结束。此时分数最低的玩家获胜。如果出现平手，最后一轮得分更低的玩家获胜。</p>
+                  <h2 className="line-title">分数重置</h2>
+                  <p>若一轮结束后，一位玩家的总分恰好为 100 分，将他<span className="last-row">的分数重置到 50 分。每位玩家每局游戏只能重置一次。</span></p>
+                  <p className="worker-sign">翻译：雪松 &emsp; <span className="my-sign">描改：楚滨</span></p>
+              </div>
+            </main>
+          </div> : (
+            <div className="starting">
+
+              <div onClick={() => viewRule(true)}>
+                <span className="keyword const"></span>
+
+                <span className="var">rule</span>
+
+                <span className="mark semicolon"></span>
+              </div>
+
+              <div onClick={() => setGamePlayer(2)}>
+                <span className="keyword const"></span>
+
+                <span className="var">start</span>
+
+                <span className="mark semicolon"></span>
+              </div>
+
+              {/*<p><span className="var">export <em>class</em></span> <span className="number">Player</span> <span className="boolean">extends</span> <em className="method">gameStarter</em> {'{'}</p>
+              <div className="playerBtn">
+                <span className="method">solo</span> () {'{'}
+                <div className="playerBtn">
+                  <span><span className="btn method" onClick={() => setGamePlayer(2)}>easyMode</span>() <span className="mark semicolon"></span></span>
+                  <br />
+                  <span><span className="btn method" onClick={() => setGamePlayer(2, true)}>hardMode</span>() <span className="mark semicolon"></span></span>
+                </div>
+                <span>{'}'}</span>
+              </div>
+              <div className="playerBtn" onClick={() => setGamePlayer(3)}><span className="btn method">trine</span> () {'{}'}</div>
+              <div className="playerBtn" onClick={() => setGamePlayer(4)}><span className="btn method">quater</span> () {'{}'}</div>
+              <p>{'}'}</p>*/}
+            </div>
+          )
         )
       }
     </div>
