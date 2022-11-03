@@ -218,6 +218,7 @@ pre .log {
 
 
 .container {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: stretch;
@@ -234,6 +235,31 @@ pre .log {
   background: url('bg.png');
   background-size: auto 100%;
   background-position: top left;
+}
+.close-rule {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+}
+.close-rule::before,
+.close-rule::after {
+  content: '\0020';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 10px;
+  border-radius: 10px;
+  background: #fff;
+  transform: rotate(-45deg);
+}
+.close-rule::after {
+  transform: rotate(45deg);
+}
+.close-rule:hover {
+  opacity: 1;
 }
 .side {
   flex: 1;
